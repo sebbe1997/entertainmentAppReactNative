@@ -12,6 +12,7 @@ export function useEntertainments() {
         loadEntertainments();
     }, []);
 
+    // add a limit in the query to avoid loading everything at once
     const loadEntertainments = async () => {
         try {
             setIsLoading(true);
@@ -40,5 +41,17 @@ export function useEntertainments() {
         }
     };
 
-    return { entertainments, isLoading, error, addEntertainment, refetch: loadEntertainments };
+    const GetEntertainmentsById = async (id: number) => {
+
+        try {
+            await db.runAsync(
+                'SELECT * FROM entertainments WHERE id = ?',
+                id
+            );
+        } catch (error) {
+            console.error(`Error fetching entertainment by ID:${id}`, error);
+        }
+    };
+
+    return { GetEntertainmentsById,entertainments, isLoading, error, addEntertainment, refetch: loadEntertainments };
 }

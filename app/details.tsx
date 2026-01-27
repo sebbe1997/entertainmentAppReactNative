@@ -1,6 +1,8 @@
 import { useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native"
+import { useEntertainments } from "./data/useEntertainments";
+import { Entertainment } from "./types/entertainment";
 
 
 const styles =StyleSheet.create({
@@ -13,13 +15,21 @@ const styles =StyleSheet.create({
 
 export default function details(){
     // const { id } = useLocalSearchParams();
-    const router = useLocalSearchParams();
-    useEffect(()=>{
-        console.log(router.guid);
-    },[])
+    const { guid } = useLocalSearchParams();
+    const [entertainment, setEntertainment ] = useState<Entertainment>({} as Entertainment);
+    const { GetEntertainmentsById } = useEntertainments();
+    
+   
+
+    useEffect(() => {
+        const id = Number(guid);
+        GetEntertainmentsById(id);
+        console.log("Fetching details for item with id:", id);
+
+    }, [guid]);
     return (
     <View style={styles.viewstyle}>
         
-       <Text style={{fontSize:24}}>details for item with id: {router.guid}</Text> 
+       <Text style={{fontSize:24}}>details for item with id: {guid}</Text> 
     </View>)
 }

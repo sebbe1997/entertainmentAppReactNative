@@ -10,17 +10,17 @@ export default function Index() {
   const router = useRouter();
 
   function onSubmit(text: string) {
-    if (text.trim()) {
-      addEntertainment({
-        Title: text,
-        description: "User added",
-        rating: 0
-      }).then(() => {
-        setText("");
-      }).catch((err) => {
-        console.error("Failed to add entertainment:", err);
-      });
-    }
+    // if (text.trim()) {
+    //   addEntertainment({
+    //     Title: "test",
+    //     description: "User added",
+    //     rating: 0
+    //   }).then(() => {
+    //     setText("");
+    //   }).catch((err) => {
+    //     console.error("Failed to add entertainment:", err);
+    //   });
+    // }
   }
 
   if (isLoading) {
@@ -41,13 +41,13 @@ export default function Index() {
 
   return (
     <ScrollView contentContainerStyle={styles.container} scrollEnabled={true}>
-      <TextInput 
+      {/* <TextInput 
         placeholder="add entertainment..." 
         value={text} 
         onChangeText={setText} 
         style={styles.inputstyle}
         placeholderTextColor="#999"
-      />
+      /> */}
       
       <View style={styles.buttonview}>
         <Button title="Add" color={"#2532af"} onPress={() => onSubmit(text)}></Button>
