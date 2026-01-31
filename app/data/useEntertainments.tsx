@@ -17,6 +17,10 @@ export function useEntertainments() {
         try {
             setIsLoading(true);
             const result = await db.getAllAsync<Entertainment>('SELECT * FROM entertainments');
+            console.log('Entertainments loaded:', result);
+            if (result.length === 0) {
+                console.log('No entertainments found in the database.');
+            }
             setEntertainments(result || []);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to load entertainments');
@@ -41,15 +45,16 @@ export function useEntertainments() {
         }
     };
 
-    const GetEntertainmentsById = async (id: number) => {
+    const GetEntertainmentsById = async (eid: number) => {
 
         try {
+            const id = parseInt(eid.toString()); // parse eid to ensure it's a number
             await db.runAsync(
                 'SELECT * FROM entertainments WHERE id = ?',
                 id
             );
         } catch (error) {
-            console.error(`Error fetching entertainment by ID:${id}`, error);
+            console.error(`Error fetching entertainment by ID:${eid}`, error);
         }
     };
 

@@ -41,13 +41,6 @@ export default function Index() {
 
   return (
     <ScrollView contentContainerStyle={styles.container} scrollEnabled={true}>
-      {/* <TextInput 
-        placeholder="add entertainment..." 
-        value={text} 
-        onChangeText={setText} 
-        style={styles.inputstyle}
-        placeholderTextColor="#999"
-      /> */}
       
       <View style={styles.buttonview}>
         <Button title="Add" color={"#2532af"} onPress={() => onSubmit(text)}></Button>
@@ -55,8 +48,10 @@ export default function Index() {
       
       {entertainments.map((entertainment, index) =>
         <Pressable key={index} onPress={() => router.navigate({ pathname: "/details", params: { guid: entertainment.id.toString() } })}>
-          <View style={{ width: "auto" }}>
-            <Text style={styles.datastyle}>{entertainment.id} {entertainment.Title}</Text>
+          <View style ={styles.datastyle}>
+            <Text style={styles.datatext}>{entertainment.Title}</Text>
+            <Text style={styles.datatext}>{entertainment.description} </Text>
+            <Text style={styles.datatext}>[{entertainment.rating}]</Text>
           </View>
         </Pressable>
       )}
@@ -67,14 +62,27 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
+
+    backgroundColor: "#effada",
+    height: "100%",
   },
 
   datastyle: {
-    fontSize: 32,
-    marginVertical: 8,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 20,
+    backgroundColor: "#12315a",
+    width: "100%",
+    marginBottom: 20,
+  },
+  datatext:{
+     fontSize: 16,
+    color: "#ffffff",
+    width: "100%",
+    textAlign: "center",
+    marginBottom: 5,
   },
   inputstyle: {
     backgroundColor: "#363635",
@@ -91,7 +99,7 @@ const styles = StyleSheet.create({
   },
   buttonview: {
     width: "100%",
-    height: 58,
     marginBottom: 20,
+    
   }
 });
