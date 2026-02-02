@@ -17,7 +17,7 @@ export function useEntertainments() {
         try {
             setIsLoading(true);
             const result = await db.getAllAsync<Entertainment>('SELECT * FROM entertainments');
-            console.log('Entertainments loaded:', result);
+            //console.log('Entertainments loaded:', result);
             if (result.length === 0) {
                 console.log('No entertainments found in the database.');
             }
@@ -49,10 +49,11 @@ export function useEntertainments() {
 
         try {
             const id = parseInt(eid.toString()); // parse eid to ensure it's a number
-            await db.runAsync(
+           const data = await db.getFirstAsync(
                 'SELECT * FROM entertainments WHERE id = ?',
                 id
             );
+            return data as Entertainment; // do more null checks and type checking before returning.
         } catch (error) {
             console.error(`Error fetching entertainment by ID:${eid}`, error);
         }

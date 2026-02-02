@@ -3,7 +3,7 @@ import { Button, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from
 import { useRouter } from 'expo-router';
 import { useEntertainments } from "./data/useEntertainments"
 import { Entertainment } from "./types/entertainment"
-
+import '../global.css';
 export default function Index() {
   const { entertainments, isLoading, error, addEntertainment } = useEntertainments();
   const [text, setText] = useState<string>("");
@@ -40,11 +40,11 @@ export default function Index() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container} scrollEnabled={true}>
+    <ScrollView className="bg-gray-500" scrollEnabled={true}>
       
-      <View style={styles.buttonview}>
-        <Button title="Add" color={"#2532af"} onPress={() => onSubmit(text)}></Button>
-      </View>
+      <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => console.log("Pressed")}>
+        <Text className="text-black text-center">Add Entertainment</Text>
+      </Pressable>
       
       {entertainments.map((entertainment, index) =>
         <Pressable key={index} onPress={() => router.navigate({ pathname: "/details", params: { guid: entertainment.id.toString() } })}>

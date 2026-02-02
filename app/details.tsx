@@ -23,13 +23,17 @@ export default function details(){
 
     useEffect(() => {
         const id = Number(guid);
-        GetEntertainmentsById(id);
-        console.log("Fetching details for item with id:", id);
+        GetEntertainmentsById(id).then((data) => {
+            setEntertainment(data as Entertainment);
+        });
+        
 
     }, [guid]);
     return (
-    <View style={styles.viewstyle}>
+    <View className="bg-blue-400 h-full">
         
-       <Text style={{fontSize:24}}>details for item with id: {guid}</Text> 
+       <Text className="text-white text-lg p-3">Title {entertainment.Title}</Text>
+       <Text className="text-white text-lg p-3">Description {entertainment.description}</Text>
+       <Text className="text-white text-lg p-3">rating: {entertainment.rating}</Text> 
     </View>)
 }
