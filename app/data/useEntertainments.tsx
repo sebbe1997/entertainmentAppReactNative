@@ -1,7 +1,10 @@
 import { useSQLiteContext } from 'expo-sqlite';
+import { useEffect, useState } from 'react';
 import { Entertainment } from '../types/entertainment';
-import { useState, useEffect } from 'react';
+/*
+ALTER TABLE table_name ADD new_column_name column_definition; table_name. The name of the table to modify.
 
+*/
 export function useEntertainments() {
     const db = useSQLiteContext();
     const [entertainments, setEntertainments] = useState<Entertainment[]>([]);
@@ -17,7 +20,7 @@ export function useEntertainments() {
         try {
             setIsLoading(true);
             const result = await db.getAllAsync<Entertainment>('SELECT * FROM entertainments');
-            //console.log('Entertainments loaded:', result);
+            
             if (result.length === 0) {
                 console.log('No entertainments found in the database.');
             }
@@ -45,7 +48,7 @@ export function useEntertainments() {
         }
     };
 
-    const GetEntertainmentsById = async (eid: number) => {
+    const GetEntertainmentById = async (eid: number) => {
 
         try {
             const id = parseInt(eid.toString()); // parse eid to ensure it's a number
@@ -58,6 +61,7 @@ export function useEntertainments() {
             console.error(`Error fetching entertainment by ID:${eid}`, error);
         }
     };
+    
 
-    return { GetEntertainmentsById,entertainments, isLoading, error, addEntertainment, refetch: loadEntertainments };
+    return { GetEntertainmentById, entertainments, isLoading, error, addEntertainment, refetch: loadEntertainments };
 }

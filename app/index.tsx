@@ -1,31 +1,16 @@
-import { useState } from "react";
-import { Button, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { useRouter } from 'expo-router';
-import { useEntertainments } from "./data/useEntertainments"
-import { Entertainment } from "./types/entertainment"
+import { Pressable, ScrollView, Text, View } from "react-native";
 import '../global.css';
+import { useEntertainments } from "./data/useEntertainments";
+
 export default function Index() {
-  const { entertainments, isLoading, error, addEntertainment } = useEntertainments();
-  const [text, setText] = useState<string>("");
+  const { entertainments, isLoading, error, GetDbDetails } = useEntertainments();
   const router = useRouter();
 
-  function onSubmit(text: string) {
-    // if (text.trim()) {
-    //   addEntertainment({
-    //     Title: "test",
-    //     description: "User added",
-    //     rating: 0
-    //   }).then(() => {
-    //     setText("");
-    //   }).catch((err) => {
-    //     console.error("Failed to add entertainment:", err);
-    //   });
-    // }
-  }
-
+  
   if (isLoading) {
     return (
-      <View style={styles.container}>
+      <View className='text-blue-500'>
         <Text>Loading...</Text>
       </View>
     );
@@ -33,7 +18,7 @@ export default function Index() {
 
   if (error) {
     return (
-      <View style={styles.container}>
+      <View className='text-red-500'>
         <Text>Error: {error}</Text>
       </View>
     );
@@ -41,65 +26,22 @@ export default function Index() {
 
   return (
     <ScrollView className="bg-gray-500" scrollEnabled={true}>
-      
-      <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => console.log("Pressed")}>
+      <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => router.navigate({ pathname: "/AddEntertainmentForm",params:{}} )}>
         <Text className="text-black text-center">Add Entertainment</Text>
+      </Pressable>
+      <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => GetDbDetails() }>
+        <Text className="text-black text-center">Get Database Details</Text>
       </Pressable>
       
       {entertainments.map((entertainment, index) =>
         <Pressable key={index} onPress={() => router.navigate({ pathname: "/details", params: { guid: entertainment.id.toString() } })}>
-          <View style ={styles.datastyle}>
-            <Text style={styles.datatext}>{entertainment.Title}</Text>
-            <Text style={styles.datatext}>{entertainment.description} </Text>
-            <Text style={styles.datatext}>[{entertainment.rating}]</Text>
+          <View className="bg-gray-200 rounded-lg border">
+            <Text className="bg-red-500 text-white p-2 rounded">{entertainment.Title}</Text>
+            <Text className="p-2">{entertainment.description} </Text>
+            <Text className="p-2">[{entertainment.rating}]</Text>
           </View>
         </Pressable>
       )}
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-
-    backgroundColor: "#effada",
-    height: "100%",
-  },
-
-  datastyle: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 20,
-    backgroundColor: "#12315a",
-    width: "100%",
-    marginBottom: 20,
-  },
-  datatext:{
-     fontSize: 16,
-    color: "#ffffff",
-    width: "100%",
-    textAlign: "center",
-    marginBottom: 5,
-  },
-  inputstyle: {
-    backgroundColor: "#363635",
-    color: "white",
-    width: "100%",
-    borderWidth: 5,
-    borderColor: "#ffaaff",
-    padding: 10,
-    marginBottom: 10,
-  },
-  buttonstyle: {
-    backgroundColor: "#eaeaea",
-    color: "white"
-  },
-  buttonview: {
-    width: "100%",
-    marginBottom: 20,
-    
-  }
-});
