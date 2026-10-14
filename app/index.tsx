@@ -1,10 +1,10 @@
 import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { useEntertainments } from "../data/useEntertainments";
 import '../global.css';
-import { useEntertainments } from "./data/useEntertainments";
 
 export default function Index() {
-  const { entertainments, isLoading, error, GetDbDetails } = useEntertainments();
+  const { entertainments, loadEntertainments, isLoading, error } = useEntertainments();
   const router = useRouter();
 
   
@@ -12,6 +12,7 @@ export default function Index() {
     return (
       <View className='text-blue-500'>
         <Text>Loading...</Text>
+        <Text>{entertainments.length} entertainments loaded</Text>
       </View>
     );
   }
@@ -29,7 +30,7 @@ export default function Index() {
       <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => router.navigate({ pathname: "/AddEntertainmentForm",params:{}} )}>
         <Text className="text-black text-center">Add Entertainment</Text>
       </Pressable>
-      <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => GetDbDetails() }>
+      <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => loadEntertainments() }>
         <Text className="text-black text-center">Get Database Details</Text>
       </Pressable>
       

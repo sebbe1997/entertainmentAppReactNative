@@ -11,16 +11,11 @@ export function useEntertainments() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        loadEntertainments();
-    }, []);
-
-    // add a limit in the query to avoid loading everything at once
     const loadEntertainments = async () => {
         try {
             setIsLoading(true);
             const result = await db.getAllAsync<Entertainment>('SELECT * FROM entertainments');
-            
+            console.log('Entertainments loaded:', result);
             if (result.length === 0) {
                 console.log('No entertainments found in the database.');
             }
@@ -32,6 +27,11 @@ export function useEntertainments() {
             setIsLoading(false);
         }
     };
+    useEffect(() => {
+        //loadEntertainments();
+    }, []);
+
+    // add a limit in the query to avoid loading everything at once
 
     const addEntertainment = async (entertainment: Omit<Entertainment, 'id'>) => {
         try {
@@ -63,5 +63,6 @@ export function useEntertainments() {
     };
     
 
-    return { GetEntertainmentById, entertainments, isLoading, error, addEntertainment, refetch: loadEntertainments };
+    return { GetEntertainmentById, entertainments, isLoading, error, addEntertainment, loadEntertainments };
 }
+export default useEntertainments;

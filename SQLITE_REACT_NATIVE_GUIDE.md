@@ -9,6 +9,8 @@ This document summarizes the key learnings from implementing SQLite database fun
 ## SQLite in React Native (Expo)
 
 ### Installation
+ ## download android platform tools
+- https://developer.android.com/tools/releases/platform-tools#downloads
 
 ```bash
 npx expo install expo-sqlite

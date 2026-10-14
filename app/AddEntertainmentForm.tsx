@@ -1,8 +1,7 @@
-import React from "react";
 import { Controller, useForm } from 'react-hook-form';
 import { Button, Text, TextInput, View } from "react-native";
-import { useEntertainments } from "./data/useEntertainments";
-import { Entertainment } from "./types/entertainment";
+import { useEntertainments } from "../data/useEntertainments";
+import { Entertainment } from "../types/entertainment";
 
 export default function AddEntertainmentForm(){
 
@@ -84,5 +83,6 @@ export default function AddEntertainmentForm(){
         
     </View>
 }
+
 
  

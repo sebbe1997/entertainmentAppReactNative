@@ -1,9 +1,8 @@
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native"
-import { useEntertainments } from "./data/useEntertainments";
-import { Entertainment } from "./types/entertainment";
-
+import { StyleSheet, Text, View } from "react-native";
+import { useEntertainments } from "../data/useEntertainments";
+import { Entertainment } from "../types/entertainment";
 
 const styles =StyleSheet.create({
 
@@ -13,17 +12,17 @@ const styles =StyleSheet.create({
     }
 });
 
-export default function details(){
+ export function Details(){
     // const { id } = useLocalSearchParams();
     const { guid } = useLocalSearchParams();
     const [entertainment, setEntertainment ] = useState<Entertainment>({} as Entertainment);
-    const { GetEntertainmentsById } = useEntertainments();
+    const { GetEntertainmentById } = useEntertainments();
     
    
 
     useEffect(() => {
         const id = Number(guid);
-        GetEntertainmentsById(id).then((data) => {
+        GetEntertainmentById(id).then((data) => {
             setEntertainment(data as Entertainment);
         });
         
@@ -37,3 +36,4 @@ export default function details(){
        <Text className="text-white text-lg p-3">rating: {entertainment.rating}</Text> 
     </View>)
 }
+export default Details;
