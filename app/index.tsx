@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useEntertainments } from "../data/useEntertainments";
 import '../global.css';
@@ -8,11 +9,17 @@ export default function Index() {
   const router = useRouter();
 
   
+  useEffect(() => {
+    loadEntertainments();
+  }, []);
   if (isLoading) {
     return (
       <View className='text-blue-500'>
         <Text>Loading...</Text>
-        <Text>{entertainments.length} entertainments loaded</Text>
+        
+        <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => loadEntertainments() }>
+          <Text className="text-black text-center">load Items</Text>
+        </Pressable>
       </View>
     );
   }
@@ -24,7 +31,6 @@ export default function Index() {
       </View>
     );
   }
-
   return (
     <ScrollView className="bg-gray-500" scrollEnabled={true}>
       <Pressable className="m-4 p-4 rounded-lg bg-blue-400" onPress={() => router.navigate({ pathname: "/AddEntertainmentForm",params:{}} )}>

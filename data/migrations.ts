@@ -39,6 +39,6 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
 
     currentDbVersion = 1;
   }
-
+  console.log(`Migrated database from version ${currentDbVersion} to ${DATABASE_VERSION}`);
   await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);
 }

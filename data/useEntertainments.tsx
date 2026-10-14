@@ -13,6 +13,7 @@ export function useEntertainments() {
 
     const loadEntertainments = async () => {
         try {
+            console.log('Loading entertainments from the database..., is this even being called?');
             setIsLoading(true);
             const result = await db.getAllAsync<Entertainment>('SELECT * FROM entertainments');
             console.log('Entertainments loaded:', result);
