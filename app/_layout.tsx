@@ -7,11 +7,24 @@ export default function RootLayout() {
   return (
     <SQLiteProvider databaseName="entertainments2.db" onInit={migrateDbIfNeeded}>
       <Stack>
-        <Stack.Screen name="index" options={{title:"Home", headerShown: true }} />
-        <Stack.Screen name="details" options={{presentation:"formSheet", sheetAllowedDetents:[0.4,0.6,0.8] }} />
-         <Stack.Screen name="AddEntertainmentForm" options={{title:"Add Entertainment",presentation:"formSheet", sheetAllowedDetents:[0.4,0.6,0.8] }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="AddEntertainmentForm"
+          options={{
+            title: "Add Entertainment",
+            presentation: "formSheet",
+            sheetAllowedDetents: [0.4, 0.6, 0.8],
+          }}
+        />
+        <Stack.Screen
+          name="details"
+          options={{
+            title: "Details",
+            presentation: "formSheet",
+            sheetAllowedDetents: [0.4, 0.6, 0.8],
+          }}
+        />
       </Stack>
     </SQLiteProvider>
   );
 }
-//presentation:"sheet"

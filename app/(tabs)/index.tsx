@@ -1,8 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { useEntertainments } from "../data/useEntertainments";
-import '../global.css';
+import { useEntertainments } from "../../data/useEntertainments";
 
 export default function Index() {
   const { entertainments, loadEntertainments, isLoading, error } = useEntertainments();

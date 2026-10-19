@@ -1,5 +1,5 @@
 import { useSQLiteContext } from 'expo-sqlite';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Entertainment } from '../types/entertainment';
 /*
 ALTER TABLE table_name ADD new_column_name column_definition; table_name. The name of the table to modify.
@@ -28,9 +28,7 @@ export function useEntertainments() {
             setIsLoading(false);
         }
     };
-    useEffect(() => {
-        //loadEntertainments();
-    }, []);
+    
 
     // add a limit in the query to avoid loading everything at once
 
